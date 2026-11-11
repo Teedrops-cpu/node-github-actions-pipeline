@@ -17,6 +17,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: npm
 
       - name: Install dependencies
         run: npm ci
@@ -26,3 +27,14 @@ jobs:
 
       - name: Run tests
         run: npm test
+
+
+      - name: Verify secret is available
+        env:
+          APP_API_KEY: ${{ secrets.APP_API_KEY }}
+        run: |
+          if [ -z "$APP_API_KEY" ]; then
+            echo "APP_API_KEY is missing"
+            exit 1
+          fi
+          echo "APP_API_KEY is set (length: ${#APP_API_KEY})"
