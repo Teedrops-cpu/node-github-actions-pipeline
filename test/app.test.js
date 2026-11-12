@@ -9,5 +9,5 @@ test("GET /health returns ok", async () => {
   const body = await res.json();
   server.close();
   assert.strictEqual(res.status, 200);
-  assert.strictEqual(body.status, "healthy");
+  assert.strictEqual(body.status, "ok");
 });
